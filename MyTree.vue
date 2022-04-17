@@ -38,6 +38,9 @@ export default {
     //         }
   },
   methods: {
+    handleCommand(text){
+      console.log(text);
+    },
     isParent(data) {
       return data.type == "parent1";
     },
@@ -58,17 +61,17 @@ export default {
           )}
 
           {data.name}
-          <el-dropdown placement="bottom-start" trigger="click">
+          <el-dropdown placement="bottom-start" trigger="click" on-command={this.handleCommand}>
             <span class="el-dropdown-link">
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
             {list.map(item=>(
-                <el-dropdown-item>{item.value}</el-dropdown-item>
+                <el-dropdown-item command={item.text}>{item.value}</el-dropdown-item>
             ))}
             </el-dropdown-menu> 
           </el-dropdown>
-        </div>
+        </div> 
         //()包html，{}包script
       );
     },
