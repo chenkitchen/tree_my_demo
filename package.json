@@ -9,10 +9,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "assign.js": "^2.8.14",
+    "async-validator": "^1.11.5",
     "axios": "^0.26.1",
+    "core-js": "^3.22.0",
+    "core-js-bundle": "^3.18.3",
+    "core-js-pure": "^3.18.3",
     "element-ui": "^2.15.8",
     "express": "^4.17.3",
     "lodash": "^4.17.21",
     "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "babel-plugin-component": "^1.1.1"
   }
 }
