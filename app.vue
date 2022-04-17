@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MyTree :allData='data'/>
+        <MyTree :allData='data' :fileDrop="fileDrop" :diectoryDrop="diectoryDrop"/>
     </div>
 </template>
 
@@ -11,6 +11,13 @@ import {getTreeList} from './api'
         data(){
             return {
                 data:[],
+                fileDrop:[
+                    {text:'rm',value:'删除文件'}
+                ],
+                diectoryDrop:[
+                    {text:'rn',value:'修改名字'},
+                    {text:'rm',value:'删除文件夹'}
+                ]
             }
         },
         components:{

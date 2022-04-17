@@ -1,15 +1,13 @@
 <template>
   <div>
-      <!-- v-if="data.length"避免重复渲染 -->
-    <el-tree 
-    :data="data" 
-    v-if="data.length"
-    :default-expand-all='true'
-    :render-content="render"
+    <!-- v-if="data.length"避免重复渲染 -->
+    <el-tree
+      :data="data"
+      v-if="data.length"
+      :default-expand-all="true"
+      :render-content="render"
+      :expand-on-click-node="false"
     ></el-tree>
-    <!-- <span class='el-icon-folder'></span>
-            <span class='el-icon-folder-opened'></span>
-            <span class='el-icon-document'></span> -->
   </div>
 </template>
 
@@ -22,32 +20,57 @@ export default {
       type: Array,
       default: () => [],
     },
+    diectoryDrop:Array,
+    fileDrop:Array,
   },
   data() {
     return {
       data: [],
     };
   },
-  watch: {//监控数据变化就更新视图
+  watch: {
+    //监控数据变化就更新视图
     allData() {
-        this.transData();
+      this.transData();
     },
     // {
     //             data.type? <span class='el-icon-folder'> : <span class='el-icon-document'></span>
     //         }
   },
   methods: {
-    isParent(data){
-        return data.type == 'parent1'
+    isParent(data) {
+      return data.type == "parent1";
     },
-    render(h, { node, data }){
-        console.log(node, data.type);
-        return (<div>
-        {this.isParent(data)? node.expanded? <span class='el-icon-folder-opened'></span>:<span class='el-icon-folder'></span>:<span class='el-icon-document'></span>}
-        
-        {data.name} 
-        
-        </div>)
+    render(h, { node, data }) {
+      console.log(node, data.type);
+      let list = this.isParent(data) ? this.diectoryDrop : this.fileDrop;
+      console.log(list);
+      return (
+        <div>
+          {this.isParent(data) ? (
+            (node.expanded && node.childNodes.length !=0)? (
+              <span class="el-icon-folder-opened"></span>
+            ) : (
+              <span class="el-icon-folder"></span>
+            )
+          ) : (
+            <span class="el-icon-document"></span>
+          )}
+
+          {data.name}
+          <el-dropdown placement="bottom-start" trigger="click">
+            <span class="el-dropdown-link">
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+            {list.map(item=>(
+                <el-dropdown-item>{item.value}</el-dropdown-item>
+            ))}
+            </el-dropdown-menu> 
+          </el-dropdown>
+        </div>
+        //()包html，{}包script
+      );
     },
     transData() {
       let otherData = _.cloneDeep(this.allData);
@@ -83,5 +106,15 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
+.el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
+  .el-dropdown-menu .el-popper{
+    left: 135px;
+  }
 </style>
