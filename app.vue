@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MyTree :allData='data' :fileDrop="fileDrop" :diectoryDrop="diectoryDrop"/>
+        <MyTree :allData.sync='data' :fileDrop="fileDrop" :diectoryDrop="diectoryDrop" />
     </div>
 </template>
 
@@ -12,6 +12,7 @@ import {getTreeList} from './api'
             return {
                 data:[],
                 fileDrop:[
+                    {text:'rn',value:'修改名字'},
                     {text:'rm',value:'删除文件'}
                 ],
                 diectoryDrop:[
@@ -28,9 +29,9 @@ import {getTreeList} from './api'
             // console.log(data);
             //添加parent来区分是文件还是文件夹
             // data.parent.forEach(p=>p.type == 'parent1') 
-            console.log(data);
+            // console.log(data);
             data.parent.map(p=>{
-                console.log(p);
+                // console.log(p);
                 p.type = 'parent1'
             })
 
